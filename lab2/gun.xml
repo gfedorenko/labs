@@ -1,0 +1,46 @@
+<class>
+    <gun>
+        <model>dinkar</model>
+        <handy>kad</handy>
+        <origin>dinkar</origin>
+        <TTC>
+            <TTC1>1</TTC1>
+            <TTC2>2</TTC2>
+            <TTC3>3</TTC3>
+        </TTC>
+    </gun>
+
+    <gun>
+        <model>dinkar2</model>
+        <handy>kad2</handy>
+        <origin>dinkar2</origin>
+        <TTC>
+            <TTC1>11</TTC1>
+            <TTC2>22</TTC2>
+            <TTC3>33</TTC3>
+        </TTC>
+    </gun>
+</class>
+<class>
+<gun>
+    <model>dinkar</model>
+    <handy>kad</handy>
+    <origin>dinkar</origin>
+    <TTC>
+        <TTC1>1</TTC1>
+        <TTC2>2</TTC2>
+        <TTC3>3</TTC3>
+    </TTC>
+</gun>
+
+<gun>
+    <model>dinkar2</model>
+    <handy>kad2</handy>
+    <origin>dinkar2</origin>
+    <TTC>
+        <TTC1>11</TTC1>
+        <TTC2>22</TTC2>
+        <TTC3>33</TTC3>
+    </TTC>
+</gun>
+</class>
