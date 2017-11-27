@@ -17,13 +17,6 @@ import com.jme3.scene.Spatial;
 import com.jme3.scene.shape.Box;
 import com.jme3.scene.shape.Sphere;
 
-
-/**
- * This is the Main Class of your Game. You should only do initialization here.
- * Move your Logic into AppStates or Controls
- * @author normenhansen
- */
-
 public class Main extends SimpleApplication {
        
     private Spatial Cannon;
@@ -43,7 +36,7 @@ public class Main extends SimpleApplication {
 
     @Override
     public void simpleInitApp() {
-       
+       // inititalizing background
        Node backgroundModel = new Node("scene node");
        backgroundModel.attachChild(initGround());
 
@@ -52,40 +45,44 @@ public class Main extends SimpleApplication {
        backgroundModel.addControl(landscape);
        rootNode.attachChild(backgroundModel);
        
-       viewPort.setBackgroundColor(ColorRGBA.LightGray);
+       viewPort.setBackgroundColor(ColorRGBA.White);
        
+       // initializing cannon ball
        mySphere = new Sphere( 20, 20, 4 );
        geom = new Geometry("Sphere", mySphere);
        Material material = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
        material.setColor("Color",ColorRGBA.Black);
        geom.setMaterial(material);
 
-       
+       // initial coordinates
        x = 1.5f; 
        y = 32.5f;
        z = 45.0f;
        
+       // initial vector for the flight
        nx = 0.0f;
-       ny = 4f;
-       nz = 8f;
+       ny = 9f;
+       nz = 25f;
        
        geom.setLocalTranslation(x,y,z);
        
        rootNode.attachChild(geom);
       
+       // initializing cannon model
        Cannon = assetManager.loadModel("Models/NavalCannon.obj");
        Cannon.setLocalTranslation(1f, 13f, 0f);
 //        Material mat_default = new Material(assetManager, "Common/MatDefs/Misc/ShowNormals.j3md");
 //        Cannon.setMaterial(mat_default);
         rootNode.attachChild(Cannon);
       
-        
+        // setting up the light
         DirectionalLight light = new DirectionalLight();
         
         light.setColor(ColorRGBA.White);
         light.setDirection(new Vector3f(10f, -10f, -10f).normalizeLocal());
         rootNode.addLight(light);
         
+        // setting up the camera
         flyCam.setMoveSpeed(30);
         cam.setLocation(new Vector3f(-80f,60f,200f));
         
@@ -98,8 +95,10 @@ public class Main extends SimpleApplication {
     public void simpleUpdate(float tpf) {
         if(!isOn)return;
         
+        // check if we need to change direction
         if(y <  4f ) {ny = -ny * 0.8f; y = 4f; nz *= Rubbing;}
         
+        // changing vector coordinates for physics
         ny *= Resistanse;
         ny += g * tpf;
         nz *= Resistanse;
@@ -129,19 +128,19 @@ protected Geometry initGround() {
     Geometry floor = new Geometry("the Floor", box);
     floor.setLocalTranslation(0, 0, 0);
     Material material1 = new Material(assetManager, "Common/MatDefs/Misc/Unshaded.j3md");
-    material1.setColor("Color", ColorRGBA.Gray);
+    material1.setColor("Color", ColorRGBA.Brown);
     floor.setMaterial(material1);
     return floor;
 }
 
   private void initKeys() {
     
-    // You can map one or several inputs to one named action
+    // mappig inputs to the actions
     inputManager.addMapping("Start",  new KeyTrigger(KeyInput.KEY_0));
     inputManager.addMapping("Up",   new KeyTrigger(KeyInput.KEY_N));
     inputManager.addMapping("Down",   new KeyTrigger(KeyInput.KEY_M));
                                      
-    // Add the names to the action listener.
+    // initializing action listeners
     inputManager.addListener(actionListener,"Start");
     inputManager.addListener(actionListener,"Up");
     inputManager.addListener(actionListener,"Down");
@@ -154,7 +153,8 @@ protected Geometry initGround() {
       if (name.equals("Start") && !keyPressed) {
         isOn = true;
       }
-       
+      
+      // changing the resistance
       if(name.equals("Up") && !keyPressed)  g += (float) 0.5;  
       if(name.equals("Down") && !keyPressed)  g += (float) -1;      
     }
