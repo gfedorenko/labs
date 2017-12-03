@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Speedometer</string>
+    <string name="starting">Starting&#8230;</string>
+    <string name="distance_button_start">Start measuring distance</string>
+    <string name="distance_button_stop">Stop measuring distance</string>
+    <string name="speed">%.1f km/h</string>
+    <string name="distance_m">%.0f m</string>
+    <string name="distance_km">%.2f km</string>
+</resources>
