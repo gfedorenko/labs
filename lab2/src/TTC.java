@@ -8,7 +8,7 @@ public class TTC {
         if ((type == "gun" && range < 500) || type == "rifle") {
         this.range = range; }
         else {
-            this.optics = "undefined";
+            this.range = 0;
         }
     }
 
