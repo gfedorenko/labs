@@ -8,11 +8,16 @@ import org.xml.sax.helpers.DefaultHandler;
 public class NewSAXParser {
 
     public static void main(String[] args) throws Exception {
+//        SAXParserFactory parserFactor = SAXParserFactory.newInstance();
+//        SAXParser parser = parserFactor.newSAXParser();
+//        SAXHandler handler = new SAXHandler();
+//        parser.parse(ClassLoader.getSystemResourceAsStream("xml/employee.xml"),
+//                handler);
+
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
         SAXParser parser = parserFactor.newSAXParser();
         SAXHandler handler = new SAXHandler();
-        parser.parse(ClassLoader.getSystemResourceAsStream("xml/employee.xml"),
-                handler);
+        parser.parse("gun.xml", handler);
 
         //Printing the list of employees obtained from XML
         for ( Gun gun : handler.gunList){
@@ -39,6 +44,10 @@ class SAXHandler extends DefaultHandler {
             case "gun":
                 gun = new Gun();
                 break;
+            case "TTC":
+                gun.ttc = new TTC();
+                break;
+
         }
     }
 
@@ -47,7 +56,7 @@ class SAXHandler extends DefaultHandler {
                            String qName) throws SAXException {
         switch(qName){
             //Add the employee to list once end tag is found
-            case "employee":
+            case "gun":
                 gunList.add(gun);
                 break;
             //For all other end tags the employee has to be updated.
@@ -59,6 +68,19 @@ class SAXHandler extends DefaultHandler {
                 break;
             case "model":
                 gun.setModel(content);
+                break;
+
+            case "range":
+                gun.ttc.setRange(Integer.parseInt(content), gun.getType());
+                break;
+            case "optics":
+                gun.ttc.setOptics(content, gun.getType());
+                break;
+            case "collar":
+                gun.ttc.setCollar(content);
+                break;
+            case "sightingRange":
+                gun.ttc.setSightingRange(Integer.parseInt(content));
                 break;
         }
     }

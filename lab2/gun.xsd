@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.verkkokauppa.com"
+            xmlns="http://www.verkkokauppa.com"
+            elementFormDefault="qualified">
+    <xsd:element name = "type" type = "xsd:string"/>
+    <xsd:element name = "model" type = "xsd:string"/>
+    <xsd:element name = "handy" type = "xsd:string"/>
+    <xsd:element name = "origin" type = "xsd:string"/>
+    <xsd:element name = "range" type = "xsd:positiveInteger"/>
+    <xsd:element name = "optics" type = "xsd:string"/>
+    <xsd:element name = "collar" type = "xsd:string"/>
+    <xsd:element name = "sightingRange" type = "xsd:positiveInteger"/>
+
+    <xsd:complexType name = "TTC">
+        <xsd:sequence>
+            <xsd:element ref = "range"/>
+            <xsd:element ref = "optics"/>
+            <xsd:element ref = "collar"/>
+            <xsd:element ref = "sightingRange"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name = "GunType">
+        <xsd:sequence>
+            <xsd:element ref = "type"/>
+            <xsd:element ref = "model"/>
+            <xsd:element ref = "handy"/>
+            <xsd:element ref = "origin"/>
+            <xsd:element name = "TTC" type="TTC"
+                         maxOccurs = "unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name = "guns">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name = "gun" type="GunType"
+                             maxOccurs = "unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
