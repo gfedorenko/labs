@@ -1,3 +1,5 @@
+import org.xml.sax.SAXException;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.xml.stream.XMLInputFactory;
@@ -8,13 +10,17 @@ import javax.xml.transform.stream.StreamSource;
 
 public class NewStAXParser {
     public static void main(String[] args) throws XMLStreamException {
+
+        XSDValidation val = new XSDValidation();
+        try {
+            val.validate();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
         List<Gun> gunList = null;
         Gun currGun = null;
         String tagContent = null;
-//        XMLInputFactory factory = XMLInputFactory.newInstance();
-//        XMLStreamReader reader =
-//                factory.createXMLStreamReader(
-//                        ClassLoader.getSystemResourceAsStream("gun.xml"));
 
         XMLInputFactory factory = XMLInputFactory.newInstance();
         StreamSource source = new StreamSource("gun.xml");
@@ -34,6 +40,13 @@ public class NewStAXParser {
                     if("TTC".equals(reader.getLocalName())){
                         currGun.ttc = new TTC();
                     }
+                    if("typeGun".equals(reader.getLocalName())){
+                        currGun.setType("gun");
+                    }
+                    if("typeRiffle".equals(reader.getLocalName())){
+                        currGun.setType("riffle");
+                    }
+
 
                     break;
 
@@ -78,7 +91,7 @@ public class NewStAXParser {
 
         }
 
-        //Print the employee list populated from XML
+        gunList.sort(new Sorting());
         for ( Gun gun : gunList){
             System.out.println(gun);
         }

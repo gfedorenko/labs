@@ -6,8 +6,12 @@ public class Gun {
     TTC    ttc;
 
 
+    public String getOrigin() {
+        return origin;
+    }
+
     public void setType(String type) {
-        this.type = type;
+        if (this.type == null) this.type = type;
     }
     public void setOrigin(String origin) {
         this.origin = origin;
@@ -22,7 +26,6 @@ public class Gun {
     }
 
     public void setTtc(TTC ttc) {
-       // System.out.println(ttc);
         this.ttc = ttc;
     }
 

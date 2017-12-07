@@ -3,32 +3,107 @@
             targetNamespace="http://www.verkkokauppa.com"
             xmlns="http://www.verkkokauppa.com"
             elementFormDefault="qualified">
-    <xsd:element name = "type" type = "xsd:string"/>
     <xsd:element name = "model" type = "xsd:string"/>
     <xsd:element name = "handy" type = "xsd:string"/>
     <xsd:element name = "origin" type = "xsd:string"/>
-    <xsd:element name = "range" type = "xsd:positiveInteger"/>
-    <xsd:element name = "optics" type = "xsd:string"/>
-    <xsd:element name = "collar" type = "xsd:string"/>
-    <xsd:element name = "sightingRange" type = "xsd:positiveInteger"/>
-
-    <xsd:complexType name = "TTC">
+    <xsd:complexType name = "TTCGun">
         <xsd:sequence>
-            <xsd:element ref = "range"/>
-            <xsd:element ref = "optics"/>
-            <xsd:element ref = "collar"/>
-            <xsd:element ref = "sightingRange"/>
+            <xsd:element name = "range" >
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:positiveInteger">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="500"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "optics">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="false"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "collar">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="false"/>
+                        <xsd:enumeration value="true"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "sightingRange">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:positiveInteger">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="500"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name = "TTCRiffle">
+        <xsd:sequence>
+            <xsd:element name = "range" >
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:positiveInteger">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="5000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "optics">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="false"/>
+                        <xsd:enumeration value="true"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "collar">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="false"/>
+                        <xsd:enumeration value="true"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "sightingRange">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:positiveInteger">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="5000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Gun">
+        <xsd:sequence>
+            <xsd:element ref = "model"/>
+            <xsd:element ref = "handy"/>
+
+            <xsd:element name = "TTC" type="TTCGun"
+                     maxOccurs = "unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Riffle">
+        <xsd:sequence>
+            <xsd:element ref = "model"/>
+            <xsd:element ref = "handy"/>
+
+            <xsd:element name = "TTC" type="TTCRiffle"/>
         </xsd:sequence>
     </xsd:complexType>
 
     <xsd:complexType name = "GunType">
         <xsd:sequence>
-            <xsd:element ref = "type"/>
-            <xsd:element ref = "model"/>
-            <xsd:element ref = "handy"/>
             <xsd:element ref = "origin"/>
-            <xsd:element name = "TTC" type="TTC"
-                         maxOccurs = "unbounded"/>
+            <xsd:choice>
+            <xsd:element name = "typeGun" type="Gun"/>
+            <xsd:element name = "typeRiffle" type="Riffle"/>
+            </xsd:choice>
         </xsd:sequence>
     </xsd:complexType>
 

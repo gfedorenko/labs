@@ -5,20 +5,14 @@ public class TTC {
     int sightingRange;
 
     public void setRange(int range, String type) {
-        if ((type == "gun" && range < 500) || type == "rifle") {
-        this.range = range; }
-        else {
-            this.range = 0;
-        }
+        if ((type.equals("gun") && range < 500) || type.equals("riffle"))
+        this.range = range;
     }
 
     public void setOptics(String optics, String type) {
-        if ((type == "gun" && optics == "false") || type == "rifle") {
-            this.optics = optics; }
-        else {
-            this.optics = "undefined";
-        }
-    }
+        if ((type.equals("gun") && optics.equals("false")) || (type.equals("riffle")) )
+            this.optics = optics;
+           }
 
     public void setCollar(String collar) {
         this.collar = collar;

@@ -9,7 +9,7 @@ import org.xml.sax.SAXException;
 
 public class XSDValidation {
 
-    public static void main(String[] args) throws SAXException, IOException {
+    public void validate() throws SAXException, IOException {
         SchemaFactory factory = SchemaFactory.newInstance("http://www.w3.org/2001/XMLSchema");
         File schemaLocation = new File("gun.xsd");
         Schema schema = factory.newSchema(schemaLocation);

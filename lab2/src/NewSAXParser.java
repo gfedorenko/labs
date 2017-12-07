@@ -8,20 +8,17 @@ import org.xml.sax.helpers.DefaultHandler;
 public class NewSAXParser {
 
     public static void main(String[] args) throws Exception {
-//        SAXParserFactory parserFactor = SAXParserFactory.newInstance();
-//        SAXParser parser = parserFactor.newSAXParser();
-//        SAXHandler handler = new SAXHandler();
-//        parser.parse(ClassLoader.getSystemResourceAsStream("xml/employee.xml"),
-//                handler);
+        XSDValidation val = new XSDValidation();
+        val.validate();
 
         SAXParserFactory parserFactor = SAXParserFactory.newInstance();
         SAXParser parser = parserFactor.newSAXParser();
         SAXHandler handler = new SAXHandler();
         parser.parse("gun.xml", handler);
 
-        //Printing the list of employees obtained from XML
-        for ( Gun gun : handler.gunList){
-            System.out.println(gun);
+        handler.gunList.sort(new Sorting());
+        for ( Gun g : handler.gunList){
+            System.out.println(g);
         }
     }
 }
@@ -40,12 +37,17 @@ class SAXHandler extends DefaultHandler {
             throws SAXException {
 
         switch(qName){
-            //Create a new Employee object when the start tag is found
             case "gun":
                 gun = new Gun();
                 break;
             case "TTC":
                 gun.ttc = new TTC();
+                break;
+            case "typeGun":
+                gun.setType("gun");
+                break;
+            case "typeRiffle":
+                gun.setType("riffle");
                 break;
 
         }
@@ -55,11 +57,9 @@ class SAXHandler extends DefaultHandler {
     public void endElement(String uri, String localName,
                            String qName) throws SAXException {
         switch(qName){
-            //Add the employee to list once end tag is found
             case "gun":
                 gunList.add(gun);
                 break;
-            //For all other end tags the employee has to be updated.
             case "origin":
                 gun.setOrigin(content);
                 break;
@@ -69,7 +69,6 @@ class SAXHandler extends DefaultHandler {
             case "model":
                 gun.setModel(content);
                 break;
-
             case "range":
                 gun.ttc.setRange(Integer.parseInt(content), gun.getType());
                 break;

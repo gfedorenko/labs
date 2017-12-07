@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<guns xmlns:xs="http://www.w3.org/2001/XMLSchema"
-      xmlns="http://www.verkkokauppa.com">
+<tns:guns xmlns:xs="http://www.w3.org/2001/XMLSchema"
+      xmlns:tns="http://www.verkkokauppa.com">
     <gun>
-        <type>gun</type>
-        <model>Model1</model>
-        <handy>Handy1</handy>
         <origin>Germany</origin>
-        <TTC>
-            <range>100</range>
-            <optics>false</optics>
-            <collar>true</collar>
-            <sightingRange>200</sightingRange>
-        </TTC>
+        <typeGun>
+            <model>Model1</model>
+            <handy>Handy1</handy>
+            <TTC>
+                <range>100</range>
+                <optics>false</optics>
+                <collar>true</collar>
+                <sightingRange>200</sightingRange>
+            </TTC>
+        </typeGun>
     </gun>
     <gun>
-        <type>rifle</type>
-        <model>Model2</model>
-        <handy>Handy2</handy>
-        <origin>Ukraine</origin>
-        <TTC>
-            <range>1000</range>
-            <optics>true</optics>
-            <collar>false</collar>
-            <sightingRange>1500</sightingRange>
-        </TTC>
+        <origin>Germany</origin>
+        <typeRiffle>
+            <model>Model2</model>
+            <handy>Handy3</handy>
+            <TTC>
+                <range>1000</range>
+                <optics>false</optics>
+                <collar>true</collar>
+                <sightingRange>2000</sightingRange>
+            </TTC>
+        </typeRiffle>
     </gun>
-</guns>
+ </tns:guns>
