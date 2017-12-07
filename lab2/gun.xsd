@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            targetNamespace="http://www.verkkokauppa.com"
+            xmlns="http://www.verkkokauppa.com"
+            elementFormDefault="qualified">
+    <xsd:element name = "model" type = "xsd:string"/>
+    <xsd:element name = "handy" type = "xsd:string"/>
+    <xsd:element name = "origin" type = "xsd:string"/>
+    <xsd:complexType name = "TTCGun">
+        <xsd:sequence>
+            <xsd:element name = "range" >
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:positiveInteger">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="500"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "optics">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="false"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "collar">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="false"/>
+                        <xsd:enumeration value="true"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "sightingRange">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:positiveInteger">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="500"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name = "TTCRiffle">
+        <xsd:sequence>
+            <xsd:element name = "range" >
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:positiveInteger">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="5000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "optics">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="false"/>
+                        <xsd:enumeration value="true"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "collar">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:string">
+                        <xsd:enumeration value="false"/>
+                        <xsd:enumeration value="true"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+            <xsd:element name = "sightingRange">
+                <xsd:simpleType>
+                    <xsd:restriction base="xsd:positiveInteger">
+                        <xsd:minInclusive value="1"/>
+                        <xsd:maxInclusive value="5000"/>
+                    </xsd:restriction>
+                </xsd:simpleType>
+            </xsd:element>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="Gun">
+        <xsd:sequence>
+            <xsd:element ref = "model"/>
+            <xsd:element ref = "handy"/>
+
+            <xsd:element name = "TTC" type="TTCGun"
+                     maxOccurs = "unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="Riffle">
+        <xsd:sequence>
+            <xsd:element ref = "model"/>
+            <xsd:element ref = "handy"/>
+
+            <xsd:element name = "TTC" type="TTCRiffle"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name = "GunType">
+        <xsd:sequence>
+            <xsd:element ref = "origin"/>
+            <xsd:choice>
+            <xsd:element name = "typeGun" type="Gun"/>
+            <xsd:element name = "typeRiffle" type="Riffle"/>
+            </xsd:choice>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name = "guns">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name = "gun" type="GunType"
+                             maxOccurs = "unbounded"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+</xsd:schema>
